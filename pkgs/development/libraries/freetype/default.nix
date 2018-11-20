@@ -36,9 +36,9 @@ in stdenv.mkDerivation rec {
     sha256 = "12jcdz1in20yaa55izxalg3hm1pf7nydfrzps5bzb4zgihybmzz6";
   };
 
-  propagatedBuildInputs = [ zlib bzip2 libpng ]; # needed when linking against freetype
+  propagatedBuildInputs = [ pkgconfig zlib bzip2 libpng ]; # needed when linking against freetype
   # dependence on harfbuzz is looser than the reverse dependence
-  nativeBuildInputs = [ pkgconfig which makeWrapper ]
+  nativeBuildInputs = [ which makeWrapper ]
     # FreeType requires GNU Make, which is not part of stdenv on FreeBSD.
     ++ optional (!stdenv.isLinux) gnumake;
 

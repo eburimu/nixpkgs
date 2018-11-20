@@ -1,6 +1,6 @@
 { stdenv, substituteAll, fetchurl
 , pkgconfig, freetype, expat, libxslt, gperf, dejavu_fonts
-}:
+, buildPackages}:
 
 /** Font configuration scheme
  - ./config-compat.patch makes fontconfig try the following root configs, in order:
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   outputs = [ "bin" "dev" "lib" "out" ]; # $out contains all the config
 
-  propagatedBuildInputs = [ freetype ];
+  propagatedBuildInputs = [ freetype  ];
   nativeBuildInputs = [ pkgconfig gperf ];
   buildInputs = [ expat ];
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     cd "$out/etc/fonts"
-    "${libxslt.bin}/bin/xsltproc" --stringparam fontDirectories "${dejavu_fonts.minimal}" \
+    "${buildPackages.libxslt.bin}/bin/xsltproc" --stringparam fontDirectories "${dejavu_fonts.minimal}" \
       --stringparam fontconfigConfigVersion "${configVersion}" \
       --path $out/share/xml/fontconfig \
       ${./make-fonts-conf.xsl} $out/etc/fonts/fonts.conf \
