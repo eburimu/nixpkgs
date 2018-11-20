@@ -25,11 +25,11 @@
 
 buildPythonPackage rec {
   pname = "magic-wormhole";
-  version = "0.11.0";
+  version = "0.11.2";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "6fe82f2616b7fe021c969ff6d2c4b0e7fba776ffeb0ae4749b721d66412a331f";
+    sha256 = "ae79667bdbb39fba7d315e36718db383651b45421813366cfaceb069e222d905";
   };
 
   checkInputs = [ mock magic-wormhole-transit-relay ];
